@@ -1,14 +1,15 @@
+// Mustafa
 #include <algorithm>
 #include <iomanip>
 #include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
-#include "histogram.hpp"
+#include "histoguzzy.hpp"
 
-#include <fileoperations/fileoperations.hpp>
-#include <statistical/statistical.hpp>
-
+// #include <filuzzy/filuzzy.hpp>
+#include <statsi/statsi.hpp>  // library of statistical functions to be used in program written by Mubarak
+#include <strfmt/strfmt.hpp>
 float calculateScale(vector<float>& values, int& width) {
   float max = getMax(values);
   float scale = 0;

@@ -8,7 +8,7 @@ set (CMAKE_CXX_STANDARD 17)
 
 # Setting library name
 set(LIBRARY_NAME
-    filuzzy
+    histoguzzy
 )
 
 # Setting main environment variables
@@ -17,20 +17,21 @@ set(MAIN_LIBRARIES_DIR
 )
 
 set(MAIN_LIBRARIES 
-
+    strfmt
+    statsi
 )
 
 set(LIBRARY_HEADERS_DIR
     include/${LIBRARY_NAME}
 )
 set(LIBRARY_HEADERS
-    ${LIBRARY_HEADERS_DIR}/filuzzy.hpp
+    ${LIBRARY_HEADERS_DIR}/histoguzzy.hpp
 )
 set(LIBRARY_SOURCE_DIR
     src
 )
 set(LIBRARY_SOURCE
-    ${LIBRARY_SOURCE_DIR}/filuzzy.cpp
+    ${LIBRARY_SOURCE_DIR}/histoguzzy.cpp
 )
 
 
@@ -53,7 +54,7 @@ add_library(${LIBRARY_NAME} STATIC
 
 #Setting target name for tets
 set(TESTS_NAME 
-    filuzzy_tests
+    histoguzzy_tests
 )
 
 #Setting directory for test files
@@ -105,6 +106,31 @@ gtest_discover_tests(${TESTS_NAME})
 ################
 # Dependencies #
 ################
+
+# Git submodules
+find_package(Git QUIET)
+if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
+	# Update submodules as needed
+	option(GIT_SUBMODULE "Check submodules during build" ON)
+	if (GIT_SUBMODULE)
+		message(STATUS Submodule update)
+		execute_process(COMMAND ${GIT_EXECUTABLE} submodule update --init --recursive
+			WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+		    RESULT_VARIABLE GIT_SUBMOD_RESULT)
+		if(NOT GIT_SUBMOD_RESULT EQUAL "0")
+			message(FATAL_ERROR "git submodule update --init failed with ${GIT_SUBMOD_RESULT}, please checkout submodules")
+		endif()
+	endif()
+endif()
+  
+
+foreach(LIBRARY ${MAIN_LIBRARIES})
+if (NOT EXISTS ${PROJECT_SOURCE_DIR}/libs/${LIBRARY}/CMakeLists.txt)
+	message(FATAL_ERROR The ${LIBRARY} submodule was not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.)
+endif()
+endforeach(LIBRARY)
+
+
 
 # Addinng all libraries in libs/
 foreach(LIBRARY ${MAIN_LIBRARIES})
