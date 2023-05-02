@@ -17,7 +17,8 @@ set(MAIN_LIBRARIES_DIR
 )
 
 set(MAIN_LIBRARIES 
-
+strfmt
+statsi
 )
 
 set(LIBRARY_HEADERS_DIR
