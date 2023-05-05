@@ -3,10 +3,6 @@
 # Library #
 ###########
 
-#Options
-option(TESTS "Enable testing" OFF)
-
-
 cmake_minimum_required(VERSION 3.26.0)
 set (CMAKE_CXX_STANDARD 17)
 
@@ -19,7 +15,6 @@ set(LIBRARY_NAME
 set(MAIN_LIBRARIES_DIR
     libs
 )
-
 set(MAIN_LIBRARIES 
 strfmt
 statsi
@@ -76,8 +71,6 @@ set(TESTS_SOURCES
     ${TESTS_DIR}/test.cpp
 )
 
-
-
 # If TESTS option is ON
 if(TESTS)
 # Setting up GTest
@@ -117,12 +110,13 @@ if(TESTS)
 endif()
 
 
+
 ################
 # Dependencies #
 ################
 
 # Git submodules
-
+message("")
 message("Finding and downloading submodules for library `${LIBRARY_NAME}`")
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
@@ -144,9 +138,9 @@ foreach(LIBRARY ${MAIN_LIBRARIES})
 if (NOT EXISTS "${PROJECT_SOURCE_DIR}/libs/${LIBRARY}/CMakeLists.txt")
 	message(FATAL_ERROR "The ${LIBRARY} submodule was not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 else()
-    message (STATUS "Submodule `${LIBRARY}` was downloaded and has been found.")
+    message (STATUS "Submodule ${LIBRARY} was downloaded and has been found.")
 endif()
-
+message("")
 endforeach(LIBRARY)
 
 
