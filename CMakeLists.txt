@@ -3,6 +3,10 @@
 # Library #
 ###########
 
+#Options
+option(TESTS "Enable testing" OFF)
+
+
 cmake_minimum_required(VERSION 3.26.0)
 set (CMAKE_CXX_STANDARD 17)
 
@@ -74,38 +78,42 @@ set(TESTS_SOURCES
 
 
 
+# If TESTS option is ON
+if(TESTS)
 # Setting up GTest
-include(FetchContent)
+    message("Enabling tests for target")
+    message(STATUS  "Fetching GoogleTests")
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip)
+    FetchContent_MakeAvailable(googletest)
+    enable_testing()
+    message(STATUS "Enabling GoogleTest")
+    
+    # Adding test files to target
+    message(STATUS "Adding test files to target")
+    
+    # Check if target already added to project
+    if (TARGET ${TESTS_NAME})
+    else()
+        add_executable(
+        ${TESTS_NAME}
+        ${TESTS_SOURCES})
+        
+        # Linking target with GTest
+        message(STATUS "Linking library with tests and GoogleTest")
+        target_link_libraries(
+            ${TESTS_NAME}
+            GTest::gtest_main
+            ${LIBRARY_NAME})
+        # Final steps
+        message(STATUS "Including GoogleTest")
+        include(GoogleTest)
 
-FetchContent_Declare(
-  googletest
-  URL https://github.com/google/googletest/archive/03597a01ee50ed33e9dfd640b249b4be3799d395.zip
-)
-
-FetchContent_MakeAvailable(googletest)
-
-enable_testing()
-
-
-# Adding test files to target
-
-
-if (TARGET ${TESTS_NAME})
-  # Do something when target found
-else()
-add_executable(
-    ${TESTS_NAME}
-    ${TESTS_SOURCES}
-)
-# Linking target with GTest
-target_link_libraries(
-    ${TESTS_NAME}
-    GTest::gtest_main
-    ${LIBRARY_NAME}
-)
-# Final steps
-include(GoogleTest)
-gtest_discover_tests(${TESTS_NAME})
+        gtest_discover_tests(${TESTS_NAME})
+        message("")
+    endif()
 endif()
 
 
@@ -114,7 +122,7 @@ endif()
 ################
 
 # Git submodules
-message("")
+
 message("Finding and downloading submodules for library `${LIBRARY_NAME}`")
 find_package(Git QUIET)
 if(GIT_FOUND AND EXISTS ${PROJECT_SOURCE_DIR}/.git)
@@ -136,9 +144,9 @@ foreach(LIBRARY ${MAIN_LIBRARIES})
 if (NOT EXISTS "${PROJECT_SOURCE_DIR}/libs/${LIBRARY}/CMakeLists.txt")
 	message(FATAL_ERROR "The ${LIBRARY} submodule was not downloaded! GIT_SUBMODULE was turned off or failed. Please update submodules and try again.")
 else()
-    message (STATUS "Submodule ${LIBRARY} was downloaded and has been found.")
+    message (STATUS "Submodule `${LIBRARY}` was downloaded and has been found.")
 endif()
-message("")
+
 endforeach(LIBRARY)
 
 
