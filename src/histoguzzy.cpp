@@ -25,7 +25,7 @@ float calculateScale(vector<float>& values, int& width) {
   if (max < width) return 1;
   while (scale == 0 || (max / scale) >= width) {
     // I chose 10 arbitarily
-    scale += 0.2;
+    scale += 5;
   }
   return scale;
 };
