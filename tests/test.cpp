@@ -4,15 +4,11 @@
 // Demonstrate some basic assertions.
 TEST(HelloTest, Histogram) {
     cout << "\n\n";
-    vector<string> headers = {"header", "values", "asdf", "Asdf"};
-    vector<float> values = {1, 20, 32, 12};
+    vector<string> headers = {"header", "values", "asdf", "Asdf", "Hey"};
+    vector<float> values = {1, 20, 32, 32, 10};
     testing::internal::CaptureStdout();
     displayVerticalHistogram(headers, values);
     string graph = testing::internal::GetCapturedStdout();
-    // std::cerr << graph;
-    // std::cerr << "\n\n";
-    EXPECT_NE(10, 11)
-      << graph;
-    // GetCapturedStdout();
+    std::cerr << graph << endl;
     ASSERT_EQ(10,10);
 }

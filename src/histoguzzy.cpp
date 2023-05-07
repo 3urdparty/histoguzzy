@@ -24,7 +24,7 @@ float calculateScale(vector<float>& values, int& width) {
   // the terminal
   while (scale == 0 || (max / scale) >= width) {
     // I chose 10 arbitarily
-    scale += 10;
+    scale += 1;
   }
   return scale;
 };
@@ -69,80 +69,81 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
   cout << endl;
   cout << colorfmt(fg::green) << "Vertical Histogram" << clearfmt << endl;
 
-  // Create a bold seperator
+  // // Create a bold seperator
   cout << setw(30) << setfill('=') << " " << setfill(' ') << endl;
 
-  // Setting the height of the Histogram to 200
+  // // Setting the height of the Histogram to 200
   auto [width, height] = getTerminalDimensions();
 
-  // Calculate the scale to be used in the historgram
+  height = height * 3;
+  // // Calculate the scale to be used in the historgram
   float scale = calculateScale(values, height);
-
-  // Display the scale of the histogram for reference
+  cout << "Scale " << scale;
+  // // Display the scale of the histogram for reference
   cout << bold << "1 unit = " << scale << clearfmt << endl << endl;
 
-  // Get the maximum value to calculate the number of units and calibrate the
-  // other values
+  // // Get the maximum value to calculate the number of units and calibrate the
+  // // other values
   float max = getMax(values);
   int cutoff = calculateNumberOfUnits(max, scale) + 5;
 
-  // For decorative purposes, we set barWidth to 8
+  // // For decorative purposes, we set barWidth to 8
   int barWidth = 8;
 
-  // Creates a blank bar
+  // // Creates a blank bar
   cout << createRect(barWidth / 2 + 1, 0) << "+";
 
-  // This draws a line
+  // // This draws a line
   for (int x = 0; x < values.size(); x++) {
     cout << setfill('-') << setw(barWidth) << "-" << setfill(' ');
   }
 
   cout << endl;
 
-  // This will output the vertical bars, line by line
-  // By setting a variable cutoff...
-  while (cutoff >= 10) {
-    // Decorative purposes
-    cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "| ";
+  // // This will output the vertical bars, line by line
+  // // By setting a variable cutoff...
 
+  while (cutoff >= 0) {
+    // Decorative purposes
+    cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "|";
     // Iterates through every value in values
     for (int x = 0; x < values.size(); x++) {
       // Calculates the number of the units for each value using the scale
       int units = calculateNumberOfUnits(values[x], scale);
-
       // if the number of units needed to represent the bar is bigger than the
       // cutoff point for that y value
       if (units >= cutoff) {
         // It will output a barlet for that line
+
         cout << createRect(barWidth);
       } else {
         // Otherwise it will leave the bar blank
         cout << createRect(barWidth, 0);
       }
-      cutoff -= (10 / scale);
-      // addVerticalBar(headers[x], units, values[x]);
+      cutoff -= scale;
     }
     // Goes to the next line
     cout << endl;
   }
 
-  // Decorative purposes
+  // // Decorative purposes
   cout << createRect(barWidth / 2 + 1, 0) << "+";
 
-  // Iterates through every value in values
+  // // Iterates through every value in values
   for (int x = 0; x < values.size(); x++) {
     // Draws a line
     cout << setfill('-') << setw(barWidth) << "-" << setfill(' ');
   }
-  // Creates a blank rectangle
+  // // Creates a blank rectangle
   cout << endl << createRect(barWidth / 3 + 2, 0);
 
-  // This will output the Horizontal axis with all the names of bars
+  // // This will output the Horizontal axis with all the names of bars
   for (int x = 0; x < values.size(); x++) {
     cout << createRect(barWidth / 2, 0) << bold << colorfmt(fg::cyan)
          << setw(barWidth / 2) << headers[x] << clearfmt;
   };
   cout << endl;
+
 }
 
 void displayHorizontalHistogram(vector<string>& headers,
