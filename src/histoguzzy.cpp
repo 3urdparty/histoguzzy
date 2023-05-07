@@ -9,6 +9,7 @@
 // including the header file to import the function declarations
 #include <statsi/statsi.hpp>  // library of statistical functions to be used in program written by Mubarak
 #include <strfmt/strfmt.hpp>  // library of string format functions to be used in program written by Mubarak
+#include <terminalcancer/terminalcancer.hpp>
 
 #include "histoguzzy.hpp"
 
@@ -72,7 +73,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
   cout << setw(30) << setfill('=') << " " << setfill(' ') << endl;
 
   // Setting the height of the Histogram to 200
-  int height = 200;
+  auto [width, height] = getTerminalDimensions();
 
   // Calculate the scale to be used in the historgram
   float scale = calculateScale(values, height);
@@ -100,7 +101,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
 
   // This will output the vertical bars, line by line
   // By setting a variable cutoff...
-  while (cutoff > 10) {
+  while (cutoff >= 10) {
     // Decorative purposes
     cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "| ";
 
@@ -118,7 +119,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
         // Otherwise it will leave the bar blank
         cout << createRect(barWidth, 0);
       }
-      cutoff -= 1 / scale;
+      cutoff -= (10 / scale);
       // addVerticalBar(headers[x], units, values[x]);
     }
     // Goes to the next line

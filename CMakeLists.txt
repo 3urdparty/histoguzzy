@@ -22,6 +22,7 @@ set(MAIN_LIBRARIES_DIR
 set(MAIN_LIBRARIES 
 strfmt
 statsi
+terminalcancer
 )
 
 set(LIBRARY_HEADERS_DIR
@@ -118,6 +119,10 @@ endif()
 ################
 # Dependencies #
 ################
+
+
+option(TESTS "Enable tests" OFF)
+
 
 # Git submodules
 message("")

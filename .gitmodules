@@ -6,3 +6,6 @@
 	path = libs/strfmt
 	url = https://github.com/3urdparty/strfmt
 	branch = main
+[submodule "libs/terminalcancer"]
+	path = libs/terminalcancer
+	url = https://github.com/3urdparty/terminalcancer
