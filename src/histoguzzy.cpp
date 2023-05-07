@@ -75,7 +75,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
 
   // // Setting the height of the Histogram to 200
   auto [width, height] = getTerminalDimensions();
-  height = 75;
+  height = 50;
   // // Calculate the scale to be used in the historgram
   float scale = calculateScale(values, height);
   // // Display the scale of the histogram for reference
