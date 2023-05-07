@@ -99,10 +99,14 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
 
   // // This will output the vertical bars, line by line
   // // By setting a variable cutoff...
-  while (cutoff >= 0) {
+  float minimum = getMin(values);
+  float floor = calculateNumberOfUnits(minimum, scale);
+  while (cutoff >= floor) {
     // Decorative purposes
     cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "|";
     // Iterates through every value in values
+
+    bool printed_header = false;
     for (int x = 0; x < values.size(); x++) {
       // Calculates the number of the units for each value using the scale
       int units = calculateNumberOfUnits(values[x], scale);
@@ -110,6 +114,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
       // cutoff point for that y value
       if (units >= cutoff) {
         // It will output a barlet for that line
+
         cout << createRect(barWidth);
       } else {
         // Otherwise it will leave the bar blank

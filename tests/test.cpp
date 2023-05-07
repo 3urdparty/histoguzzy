@@ -5,7 +5,7 @@
 TEST(HelloTest, Histogram) {
     cout << "\n\n";
     vector<string> headers = {"header", "values", "asdf", "Asdf", "Hey"};
-    vector<float> values = {35, 20, 32, 32, 10};
+    vector<float> values = {35, 20, 32, 32, 20};
     testing::internal::CaptureStdout();
     displayVerticalHistogram(headers, values);
     string graph = testing::internal::GetCapturedStdout();
