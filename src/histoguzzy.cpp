@@ -112,7 +112,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
       int units = calculateNumberOfUnits(values[x], scale);
       // if the number of units needed to represent the bar is bigger than the
       // cutoff point for that y value
-      if (units >= cutoff) {
+      if (units >= cutoff - 1) {
         // It will output a barlet for that line
 
         cout << createRect(barWidth);
