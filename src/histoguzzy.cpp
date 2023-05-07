@@ -75,7 +75,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
 
   // // Setting the height of the Histogram to 200
   auto [width, height] = getTerminalDimensions();
-  height = 80;
+  height = 100;
   // // Calculate the scale to be used in the historgram
   float scale = calculateScale(values, height);
   // // Display the scale of the histogram for reference
@@ -139,8 +139,8 @@ cout << endl;
 
   // // This will output the Horizontal axis with all the names of bars
   for (int x = 0; x < values.size(); x++) {
-    cout << createRect(barWidth / 2, 0) << bold << colorfmt(fg::cyan)
-         << setw(barWidth / 2) << headers[x] << clearfmt;
+    cout  << bold << colorfmt(fg::cyan)
+         << setw(barWidth) << headers[x] << clearfmt;
   };
   cout << endl;
 }
