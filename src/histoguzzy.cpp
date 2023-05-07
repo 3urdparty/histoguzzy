@@ -97,7 +97,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
     cout << setfill('-') << setw(barWidth) << "-" << setfill(' ');
   }
 
-cout << endl;
+  cout << endl;
   // // This will output the vertical bars, line by line
   // // By setting a variable cutoff...
   float minimum = getMin(values);
@@ -112,7 +112,7 @@ cout << endl;
       int units = calculateNumberOfUnits(values[x], scale);
       // if the number of units needed to represent the bar is bigger than the
       // cutoff point for that y value
-      if (units >= cutoff ) {
+      if (units >= cutoff) {
         // It will output a barlet for that line
 
         cout << createRect(barWidth);
@@ -139,10 +139,10 @@ cout << endl;
 
   // // This will output the Horizontal axis with all the names of bars
   for (int x = 0; x < values.size(); x++) {
-    cout  << bold << colorfmt(fg::cyan)
-         << setw(barWidth) << headers[x] << clearfmt;
+    cout << bold << colorfmt(fg::cyan) << setw(barWidth) << headers[x]
+         << clearfmt;
   };
-  cout << endl;
+  cout << endl << endl;
 }
 
 void displayHorizontalHistogram(vector<string>& headers,
