@@ -122,20 +122,20 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
   }
 
   // // Decorative purposes
-  // cout << createRect(barWidth / 2 + 1, 0) << "+";
+  cout << createRect(barWidth / 2 + 1, 0) << "+";
 
   // // Iterates through every value in values
   for (int x = 0; x < values.size(); x++) {
     // Draws a line
-    // cout << setfill('-') << setw(barWidth) << "-" << setfill(' ');
+    cout << setfill('-') << setw(barWidth) << "-" << setfill(' ');
   }
   // // Creates a blank rectangle
-  // cout << endl << createRect(barWidth / 3 + 2, 0);
+  cout << endl << createRect(barWidth / 3 + 2, 0);
 
   // // This will output the Horizontal axis with all the names of bars
   for (int x = 0; x < values.size(); x++) {
-    // cout << createRect(barWidth / 2, 0) << bold << colorfmt(fg::cyan)
-    //      << setw(barWidth / 2) << headers[x] << clearfmt;
+    cout << createRect(barWidth / 2, 0) << bold << colorfmt(fg::cyan)
+         << setw(barWidth / 2) << headers[x] << clearfmt;
   };
   cout << endl;
 }
