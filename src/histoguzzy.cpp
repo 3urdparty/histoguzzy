@@ -97,6 +97,7 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
     cout << setfill('-') << setw(barWidth) << "-" << setfill(' ');
   }
 
+cout << endl;
   // // This will output the vertical bars, line by line
   // // By setting a variable cutoff...
   float minimum = getMin(values);
@@ -106,7 +107,6 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
     cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "|";
     // Iterates through every value in values
 
-    bool printed_header = false;
     for (int x = 0; x < values.size(); x++) {
       // Calculates the number of the units for each value using the scale
       int units = calculateNumberOfUnits(values[x], scale);
