@@ -102,7 +102,7 @@ cout << endl;
   // // By setting a variable cutoff...
   float minimum = getMin(values);
   float floor = calculateNumberOfUnits(minimum, scale);
-  while (cutoff >= floor) {
+  while (cutoff >= floor - scale) {
     // Decorative purposes
     cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "|";
     // Iterates through every value in values
@@ -112,7 +112,7 @@ cout << endl;
       int units = calculateNumberOfUnits(values[x], scale);
       // if the number of units needed to represent the bar is bigger than the
       // cutoff point for that y value
-      if (units >= cutoff - scale) {
+      if (units >= cutoff ) {
         // It will output a barlet for that line
 
         cout << createRect(barWidth);
