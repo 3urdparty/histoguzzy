@@ -170,4 +170,6 @@ void displayHorizontalHistogram(vector<string>& headers,
     // Header and the value of that bar are provided for decorative purposes
     addHorizontalBar(headers[x], units, values[x]);
   }
+
+  cout << endl << endl;
 }
