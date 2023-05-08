@@ -102,7 +102,8 @@ void displayVerticalHistogram(vector<string>& headers, vector<float>& values) {
   // // By setting a variable cutoff...
   float minimum = getMin(values);
   float floor = calculateNumberOfUnits(minimum, scale);
-  while (cutoff >= floor - scale) {
+  floor = (floor >= 0) ? floor - scale : 0;
+  while (cutoff >= floor) {
     // Decorative purposes
     cout << left << setw(barWidth / 2 + 1) << right << cutoff * scale << "|";
     // Iterates through every value in values
